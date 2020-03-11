@@ -17,13 +17,16 @@ sass.compiler = require('node-sass');
 const imgSrc        = './assets/img/**/*';
 const imgDest       = './_site/assets/img';
 
+const pdfSrc        = './assets/pdf/*.pdf';
+const pdfDest       = './_site/assets/pdf';
+
 const fontSrc       = './assets/font/*';
 const fontDest      = './_site/assets/font';
 
-const jsSrc         = './assets/js/*';
+const jsSrc         = './assets/js/*.js';
 const jsDest        = './_site/assets/js';
 
-const styleSrc      = './assets/sass/**/*';
+const styleSrc      = './assets/sass/**/*.sass';
 const styleDev      = './assets/css/';
 const styleDest     = './_site/assets/css';
 
@@ -57,25 +60,22 @@ function doReload(cb) {
 
 }
 
+function doPDF(cb) {
+
+    return src(pdfSrc)
+        .pipe(dest(pdfDest))
+        .pipe(browserSync.stream());
+
+    cb();
+
+}
+
 function doImg(cb) {
 
     return src(imgSrc)
-        .pipe(
-            imagemin([
-                imagemin.gifsicle({ interlaced: true }),
-                imagemin.jpegtran({ progressive: true }),
-                imagemin.optipng({ optimizationLevel: 5 }),
-                imagemin.svgo({
-                  plugins: [
-                    {
-                      removeViewBox: false,
-                      collapseGroups: true
-                    }
-                  ]
-                })
-            ])
-        )
-        .pipe(dest(imgDest));
+        .pipe(imagemin())
+        .pipe(dest(imgDest))
+        .pipe(browserSync.stream());
 
     cb();
 
@@ -84,7 +84,8 @@ function doImg(cb) {
 function doFont(cb) {
 
     return src(fontSrc)
-        .pipe(dest(fontDest));
+        .pipe(dest(fontDest))
+        .pipe(browserSync.stream());
 
     cb();
 
@@ -98,7 +99,8 @@ function doJS(cb) {
         .pipe(sourceMap.init())
         .pipe(terser())
         .pipe(sourceMap.write())
-        .pipe(dest(jsDest));
+        .pipe(dest(jsDest))
+        .pipe(browserSync.stream());
 
     cb();
 
