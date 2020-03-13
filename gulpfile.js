@@ -147,7 +147,7 @@ function watchAll() {
             './_includes/**/*',
             './_layouts/**/*',
             './_posts/**/*',
-            './_work/**/*',
+            './_pages/**/*',
             './*.md',
             './*.html'
         ],
@@ -164,3 +164,4 @@ exports.default = function() {
 }
 
 exports.deploy = doDeploy
+exports.jekyll = doJekyll
