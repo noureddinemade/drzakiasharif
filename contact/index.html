@@ -96,7 +96,7 @@
 
 </header>
 
-        <section class="intro">
+        <section class="intro" style="background-image: url('/assets/img/photography/24.jpg');">
 
     <div class="inner">
 
@@ -110,44 +110,110 @@
 
 <section>
 
-    <div class="inner grid -two">
+    <div class="inner grid -two -info">
 
         <div class="col">
 
+            <h2>Send an enquiry</h2>
+
+            <p class="notice">All fields are required.</p>
+
             <form action="https://getform.io/f/a960a9a6-f100-41cc-a38d-834b4332cb17" method="POST">
 
-                <div class="item">
+                <div class="form-item -name">
 
-                    <label for="name"></label>
-                    <input type="text" name="name">
-
-                </div>
-
-                <div class="item">
-
-                    <label for="email"></label>
-                    <input type="email" name="email">
+                    <label for="name">Your name</label>
+                    <input type="text" name="name" id="name">
+                    <p>So we know what to call you.</p>
 
                 </div>
 
-                <div class="item">
+                <div class="form-item -contactPref">
 
-                    <label for="name"></label>
-                    <input type="text" name="name">
+                    <label for="contact-preference">How would you like us to contact you?</label>
+                    <div>
+                        <input type="radio" name="contact-preference" id="radioPhone" value="Phone">
+                        <label for="radioPhone">Phone</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="contact-preference" id="radioEmail" value="Email">
+                        <label for="radioEmail">Email</label>
+                    </div>
 
                 </div>
 
+                <div class="form-item -email">
 
-                <input type="email" name="email">
-                <input type="tel" name="tel">
-                <button type="submit">Send</button>
+                    <label for="email">Email address</label>
+                    <input type="email" name="email" id="email">
+                    <p>Please provide a valid email address.</p>
+
+                </div>
+
+                <div class="form-item -phone">
+
+                    <label for="phone">Phone number</label>
+                    <input type="number" name="phone" id="phone">
+                    <p>Please provide your best contact number.</p>
+
+                </div>
+
+                <div class="form-item -reason">
+
+                    <label for="reason">What&rsquo;s the reason for your enquiry today?</label>
+                    <select name="reason" id="reason">
+
+                        <option value="default" slected hidden>Please pick an option</option>
+                        <option value="Book an appointment">Book an appointment</option>
+                        <option value="General enquiry">General enquiry</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-item -preferredTime">
+
+                    <label for="preferred-time">Preferred time</label>
+                    <div>
+                        <input type="radio" name="preferred-time" id="morning" value="Morning">
+                        <label for="morning">Morning</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="preferred-time" id="afternoon" value="Afternoon">
+                        <label for="afternoon">Afternoon</label>
+                    </div>
+
+                </div>
+
+                <div class="form-item -message">
+
+                    <label for="message">Your message</label>
+                    <textarea name="message" id="message" name="message"></textarea>
+
+                </div>
+
+                <button type="submit" class="-disabled">Send enquiry</button>
 
             </form>
 
         </div>
 
-        <div class="col">
-            HELLOO
+        <div class="col -contact">
+
+            <h3>Our Contact Details</h3>
+            <ul>
+                <li>T: 07 &bull; 4638 8126</li>
+                <li>F: 07 &bull; 4638 4774</li>
+                <li>E: <a href="mailto:hello@drsharif.com.au">hello@drsharif.com.au</a></li>
+            </ul>
+
+            <p>St Vincent&rsquo;s Hospital<br>
+            Entrance 2, Level 1<br>
+            22-36 Scott Street<br>
+            Toowoomba QLD 4350</p>
+
+            <iframe width="100%" height="350" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJn-uS85JdlmsRC5A3kzyG4cs&key=AIzaSyALgDmDsYUVGKUqxMKRBS4vndm0Yi_UUeQ" allowfullscreen></iframe>
+
         </div>
 
     </div>
