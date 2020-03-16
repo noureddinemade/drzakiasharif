@@ -1239,6 +1239,16 @@ form {
       top: 47%;
       right: 10px;
       font-size: 32px; }
+    form .form-item.-error input, form .form-item.-error textarea, form .form-item.-error select {
+      border-color: #F3859B;
+      color: #ea284f; }
+    form .form-item.-error label {
+      color: #ea284f; }
+      form .form-item.-error label:before {
+        border-color: #F3859B; }
+    form .form-item.-error p {
+      background-color: #fce2e7;
+      color: #ea284f; }
     form .form-item * {
       position: relative;
       z-index: 1; }
@@ -1249,9 +1259,6 @@ form {
       height: 60px;
       border: 1px solid #c5c5c5;
       border-radius: 4px; }
-      form .form-item input.-error, form .form-item textarea.-error, form .form-item select.-error {
-        color: #ea284f;
-        border: 2px solid #F3859B; }
     form .form-item label {
       display: block;
       margin-bottom: 6px;
@@ -1260,7 +1267,8 @@ form {
       color: #5f5f5f; }
     form .form-item textarea {
       height: 200px;
-      padding: 20px; }
+      padding: 20px;
+      resize: none; }
     form .form-item select {
       font-weight: 600;
       background-color: white;
@@ -1306,6 +1314,3 @@ form {
       color: #454545;
       border-top: 0;
       border-radius: 4px; }
-      form .form-item p.-error {
-        background-color: #fdebef;
-        color: #ea284f; }
