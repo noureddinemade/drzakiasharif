@@ -1,2 +1,374 @@
-const contactForm=document.querySelector("form"),contactFormInputs=contactForm.querySelectorAll("input, select, textarea"),formName=contactForm.querySelector(".-name"),formNameInput=formName.querySelector("input"),formContactPref=contactForm.querySelector(".-contactPref"),formContactPrefPhone=formContactPref.querySelector("#radioPhone"),formContactPrefEmail=formContactPref.querySelector("#radioEmail"),formEmail=contactForm.querySelector(".-email"),formEmailInput=formEmail.querySelector("input"),formPhone=contactForm.querySelector(".-phone"),formPhoneInput=formPhone.querySelector("input"),formReason=contactForm.querySelector(".-reason"),formReasonSelect=formReason.querySelector("select"),formPreferredTime=contactForm.querySelector(".-preferredTime"),formPreferredTimeAM=formPreferredTime.querySelector("#radioAM"),formPreferredTimePM=formPreferredTime.querySelector("#radioPM"),formMessage=contactForm.querySelector(".-message"),formMessageInput=formMessage.querySelector("textarea"),formVerify=contactForm.querySelector(".-verify"),formVerifyInput=formVerify.querySelector("input"),formVerifySpan=formVerify.querySelector("label span"),formVerifyMessage=formVerify.querySelector("p"),formButton=contactForm.querySelector("button"),formRadios=contactForm.querySelectorAll("input[type=radio]");let verifyX=0,verifyY=0,verifyAnswer=0;const readyToSubmit=e=>{let r=0,o=!1;return formRadios.forEach(e=>{e.checked?r-=1:r+=1}),contactFormInputs.forEach(t=>{"name"==t.name&&(t.value?"1"==e&&formName.classList.remove("-error"):(o=!0,"1"==e&&formName.classList.add("-error"))),"radio"==t.type&&t.checked&&("Phone"==t.value?formPhoneInput.value||(o=!0,"1"==e&&formPhone.classList.add("-error")):"Email"==t.value&&(formEmailInput.value||(o=!0,"1"==e&&formEmail.classList.add("-error")))),"Book an appointment"==t.value?r>0&&("1"==e&&(contactForm.querySelector("input[name=contact-preference]").checked?formContactPref.classList.remove("-error"):formContactPref.classList.add("-error"),contactForm.querySelector("input[name=preferred-time]").checked?formPreferredTime.classList.remove("-error"):formPreferredTime.classList.add("-error")),o=!0):r>2&&("1"==e&&formContactPref.classList.add("-error"),o=!0),"message"==t.name&&(t.value?"1"==e&&formMessage.classList.remove("-error"):(o=!0,"1"==e&&formMessage.classList.add("-error"))),"verify"==t.name&&(t.value?"1"==e&&formVerify.classList.remove("-error"):(o=!0,"1"==e&&formVerify.classList.add("-error")))}),o},randomVerify=()=>{verifyX=Math.floor(10*Math.random())+1,verifyY=Math.floor(10*Math.random())+1,verifyAnswer=verifyX+verifyY,formVerifySpan.innerHTML=`${verifyX} + ${verifyY}`};verifyX=Math.floor(10*Math.random())+1,verifyY=Math.floor(10*Math.random())+1,verifyAnswer=verifyX+verifyY,formVerifySpan.innerHTML=`${verifyX} + ${verifyY}`,formContactPrefPhone.addEventListener("click",()=>{formEmail.style.display="none",formPhone.style.display="block"}),formContactPrefEmail.addEventListener("click",()=>{formPhone.style.display="none",formEmail.style.display="block"}),formReasonSelect.addEventListener("change",()=>{let e=formPreferredTime.querySelectorAll("input");"General enquiry"==formReasonSelect.value?(formPreferredTime.style.display="none",e.forEach(e=>{e.checked=!1})):formPreferredTime.style.display="block"}),contactFormInputs.forEach(e=>{"text"==e.type||"email"==e.type||"number"==e.type||"message"==e.name?e.addEventListener("keyup",()=>{e.parentNode.classList.remove("-error"),readyToSubmit(0)?formButton.classList.add("-disabled"):formButton.classList.remove("-disabled")}):e.addEventListener("change",()=>{e.parentNode.parentNode.classList.remove("-error"),readyToSubmit(0)?formButton.classList.add("-disabled"):formButton.classList.remove("-disabled")})}),formButton.addEventListener("click",e=>{readyToSubmit(1)?(e.preventDefault(),contactForm.scrollIntoView()):formVerifyInput.value!=verifyAnswer&&(e.preventDefault(),formVerify.classList.add("-error"),formVerifyMessage.innerHTML="This answer is not correct")});
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvcm0uanMiXSwibmFtZXMiOlsiY29udGFjdEZvcm0iLCJkb2N1bWVudCIsInF1ZXJ5U2VsZWN0b3IiLCJjb250YWN0Rm9ybUlucHV0cyIsInF1ZXJ5U2VsZWN0b3JBbGwiLCJmb3JtTmFtZSIsImZvcm1OYW1lSW5wdXQiLCJmb3JtQ29udGFjdFByZWYiLCJmb3JtQ29udGFjdFByZWZQaG9uZSIsImZvcm1Db250YWN0UHJlZkVtYWlsIiwiZm9ybUVtYWlsIiwiZm9ybUVtYWlsSW5wdXQiLCJmb3JtUGhvbmUiLCJmb3JtUGhvbmVJbnB1dCIsImZvcm1SZWFzb24iLCJmb3JtUmVhc29uU2VsZWN0IiwiZm9ybVByZWZlcnJlZFRpbWUiLCJmb3JtUHJlZmVycmVkVGltZUFNIiwiZm9ybVByZWZlcnJlZFRpbWVQTSIsImZvcm1NZXNzYWdlIiwiZm9ybU1lc3NhZ2VJbnB1dCIsImZvcm1WZXJpZnkiLCJmb3JtVmVyaWZ5SW5wdXQiLCJmb3JtVmVyaWZ5U3BhbiIsImZvcm1WZXJpZnlNZXNzYWdlIiwiZm9ybUJ1dHRvbiIsImZvcm1SYWRpb3MiLCJ2ZXJpZnlYIiwidmVyaWZ5WSIsInZlcmlmeUFuc3dlciIsInJlYWR5VG9TdWJtaXQiLCJlcnJvciIsInIiLCJpIiwiZm9yRWFjaCIsInJhZGlvIiwiY2hlY2tlZCIsImlucHV0IiwibmFtZSIsInZhbHVlIiwiY2xhc3NMaXN0IiwicmVtb3ZlIiwiYWRkIiwidHlwZSIsInJhbmRvbVZlcmlmeSIsIk1hdGgiLCJmbG9vciIsInJhbmRvbSIsImlubmVySFRNTCIsImFkZEV2ZW50TGlzdGVuZXIiLCJzdHlsZSIsImRpc3BsYXkiLCJyYWRpb3MiLCJwYXJlbnROb2RlIiwiZSIsInByZXZlbnREZWZhdWx0Iiwic2Nyb2xsSW50b1ZpZXciXSwibWFwcGluZ3MiOiJBQUVBLE1BQU1BLFlBQTRCQyxTQUFTQyxjQUFjLFFBQ25EQyxrQkFBNEJILFlBQVlJLGlCQUFpQiwyQkFFekRDLFNBQTRCTCxZQUFZRSxjQUFjLFVBQ3RESSxj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LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy9cblxuY29uc3QgY29udGFjdEZvcm0gICAgICAgICAgICAgICA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJ2Zvcm0nKTtcbmNvbnN0IGNvbnRhY3RGb3JtSW5wdXRzICAgICAgICAgPSBjb250YWN0Rm9ybS5xdWVyeVNlbGVjdG9yQWxsKCdpbnB1dCwgc2VsZWN0LCB0ZXh0YXJlYScpO1xuXG5jb25zdCBmb3JtTmFtZSAgICAgICAgICAgICAgICAgID0gY29udGFjdEZvcm0ucXVlcnlTZWxlY3RvcignLi1uYW1lJyk7XG5jb25zdCBmb3JtTmFtZUlucHV0ICAgICAgICAgICAgID0gZm9ybU5hbWUucXVlcnlTZWxlY3RvcignaW5wdXQnKTtcblxuY29uc3QgZm9ybUNvbnRhY3RQcmVmICAgICAgICAgICA9IGNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3IoJy4tY29udGFjdFByZWYnKTtcbmNvbnN0IGZvcm1Db250YWN0UHJlZlBob25lICAgICAgPSBmb3JtQ29udGFjdFByZWYucXVlcnlTZWxlY3RvcignI3JhZGlvUGhvbmUnKTtcbmNvbnN0IGZvcm1Db250YWN0UHJlZkVtYWlsICAgICAgPSBmb3JtQ29udGFjdFByZWYucXVlcnlTZWxlY3RvcignI3JhZGlvRW1haWwnKTtcbmNvbnN0IGZvcm1FbWFpbCAgICAgICAgICAgICAgICAgPSBjb250YWN0Rm9ybS5xdWVyeVNlbGVjdG9yKCcuLWVtYWlsJyk7XG5jb25zdCBmb3JtRW1haWxJbnB1dCAgICAgICAgICAgID0gZm9ybUVtYWlsLnF1ZXJ5U2VsZWN0b3IoJ2lucHV0Jyk7XG5jb25zdCBmb3JtUGhvbmUgICAgICAgICAgICAgICAgID0gY29udGFjdEZvcm0ucXVlcnlTZWxlY3RvcignLi1waG9uZScpO1xuY29uc3QgZm9ybVBob25lSW5wdXQgICAgICAgICAgICA9IGZvcm1QaG9uZS5xdWVyeVNlbGVjdG9yKCdpbnB1dCcpO1xuXG5jb25zdCBmb3JtUmVhc29uICAgICAgICAgICAgICAgID0gY29udGFjdEZvcm0ucXVlcnlTZWxlY3RvcignLi1yZWFzb24nKTtcbmNvbnN0IGZvcm1SZWFzb25TZWxlY3QgICAgICAgICAgPSBmb3JtUmVhc29uLnF1ZXJ5U2VsZWN0b3IoJ3NlbGVjdCcpO1xuY29uc3QgZm9ybVByZWZlcnJlZFRpbWUgICAgICAgICA9IGNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3IoJy4tcHJlZmVycmVkVGltZScpO1xuY29uc3QgZm9ybVByZWZlcnJlZFRpbWVBTSAgICAgICA9IGZvcm1QcmVmZXJyZWRUaW1lLnF1ZXJ5U2VsZWN0b3IoJyNyYWRpb0FNJyk7XG5jb25zdCBmb3JtUHJlZmVycmVkVGltZVBNICAgICAgID0gZm9ybVByZWZlcnJlZFRpbWUucXVlcnlTZWxlY3RvcignI3JhZGlvUE0nKTtcblxuY29uc3QgZm9ybU1lc3NhZ2UgICAgICAgICAgICAgICA9IGNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3IoJy4tbWVzc2FnZScpO1xuY29uc3QgZm9ybU1lc3NhZ2VJbnB1dCAgICAgICAgICA9IGZvcm1NZXNzYWdlLnF1ZXJ5U2VsZWN0b3IoJ3RleHRhcmVhJyk7XG5cbmNvbnN0IGZvcm1WZXJpZnkgICAgICAgICAgICAgICAgPSBjb250YWN0Rm9ybS5xdWVyeVNlbGVjdG9yKCcuLXZlcmlmeScpO1xuY29uc3QgZm9ybVZlcmlmeUlucHV0ICAgICAgICAgICA9IGZvcm1WZXJpZnkucXVlcnlTZWxlY3RvcignaW5wdXQnKTtcbmNvbnN0IGZvcm1WZXJpZnlTcGFuICAgICAgICAgICAgPSBmb3JtVmVyaWZ5LnF1ZXJ5U2VsZWN0b3IoJ2xhYmVsIHNwYW4nKTtcbmNvbnN0IGZvcm1WZXJpZnlNZXNzYWdlICAgICAgICAgPSBmb3JtVmVyaWZ5LnF1ZXJ5U2VsZWN0b3IoJ3AnKTtcblxuY29uc3QgZm9ybUJ1dHRvbiAgICAgICAgICAgICAgICA9IGNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3IoJ2J1dHRvbicpO1xuY29uc3QgZm9ybVJhZGlvcyAgICAgICAgICAgICAgICA9IGNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3JBbGwoJ2lucHV0W3R5cGU9cmFkaW9dJyk7XG5cbi8vXG5cbmxldCB2ZXJpZnlYICAgICAgICAgPSAwO1xubGV0IHZlcmlmeVkgICAgICAgICA9IDA7XG5sZXQgdmVyaWZ5QW5zd2VyICAgID0gMDtcblxuLy9cblxuY29uc3QgcmVhZHlUb1N1Ym1pdCA9IChlcnJvcikgPT4ge1xuXG4gICAgbGV0IHIgICAgICAgPSAwO1xuICAgIGxldCBpICAgICAgID0gZmFsc2U7XG5cbiAgICAvLyBSYWRpbyBpbnB1dHNcblxuICAgIGZvcm1SYWRpb3MuZm9yRWFjaChyYWRpbyA9PiB7XG5cbiAgICAgICAgaWYgKCFyYWRpby5jaGVja2VkKSB7XG5cbiAgICAgICAgICAgIHIgPSByICsgMTtcblxuICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICByID0gciAtIDE7XG5cbiAgICAgICAgfVxuXG4gICAgfSk7XG5cbiAgICAvLyBUZXh0IGlucHV0c1xuXG4gICAgY29udGFjdEZvcm1JbnB1dHMuZm9yRWFjaChpbnB1dCA9PiB7XG5cbiAgICAgICAgLy8gTmFtZVxuXG4gICAgICAgIGlmIChpbnB1dC5uYW1lID09ICduYW1lJykge1xuXG4gICAgICAgICAgICBpZiAoIWlucHV0LnZhbHVlKSB7XG5cbiAgICAgICAgICAgICAgICBpID0gdHJ1ZTtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtTmFtZS5jbGFzc0xpc3QuYWRkKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtTmFtZS5jbGFzc0xpc3QucmVtb3ZlKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgICAgICAvLyBDb250YWN0IFByZWZlcmVuY2VcblxuICAgICAgICBpZiAoaW5wdXQudHlwZSA9PSAncmFkaW8nKSB7XG5cbiAgICAgICAgICAgIGlmIChpbnB1dC5jaGVja2VkKSB7XG5cbiAgICAgICAgICAgICAgICBpZiAoaW5wdXQudmFsdWUgPT0gJ1Bob25lJykge1xuXG4gICAgICAgICAgICAgICAgICAgIGlmICghZm9ybVBob25lSW5wdXQudmFsdWUpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgaSA9IHRydWU7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvcm1QaG9uZS5jbGFzc0xpc3QuYWRkKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIGVsc2UgaWYgKGlucHV0LnZhbHVlID09ICdFbWFpbCcpIHtcblxuICAgICAgICAgICAgICAgICAgICBpZiAoIWZvcm1FbWFpbElucHV0LnZhbHVlKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGkgPSB0cnVlO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAoZXJyb3IgPT0gJzEnKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBmb3JtRW1haWwuY2xhc3NMaXN0LmFkZCgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICAgICAgLy8gU2VsZWN0XG5cbiAgICAgICAgaWYgKGlucHV0LnZhbHVlID09ICdCb29rIGFuIGFwcG9pbnRtZW50Jykge1xuXG4gICAgICAgICAgICBpZiAociA+IDApIHtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBpZiAoIWNvbnRhY3RGb3JtLnF1ZXJ5U2VsZWN0b3IoJ2lucHV0W25hbWU9Y29udGFjdC1wcmVmZXJlbmNlXScpLmNoZWNrZWQpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgZm9ybUNvbnRhY3RQcmVmLmNsYXNzTGlzdC5hZGQoJy1lcnJvcicpO1xuXG4gICAgICAgICAgICAgICAgICAgIH0gZWxzZSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGZvcm1Db250YWN0UHJlZi5jbGFzc0xpc3QucmVtb3ZlKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKCFjb250YWN0Rm9ybS5xdWVyeVNlbGVjdG9yKCdpbnB1dFtuYW1lPXByZWZlcnJlZC10aW1lXScpLmNoZWNrZWQpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgZm9ybVByZWZlcnJlZFRpbWUuY2xhc3NMaXN0LmFkZCgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgZm9ybVByZWZlcnJlZFRpbWUuY2xhc3NMaXN0LnJlbW92ZSgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaSA9IHRydWU7XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICBpZiAociA+IDIpIHtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtQ29udGFjdFByZWYuY2xhc3NMaXN0LmFkZCgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBpID0gdHJ1ZTtcblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgICAgICAvLyBUZXh0YXJlYVxuXG4gICAgICAgIGlmIChpbnB1dC5uYW1lID09ICdtZXNzYWdlJykge1xuXG4gICAgICAgICAgICBpZiAoIWlucHV0LnZhbHVlKSB7XG5cbiAgICAgICAgICAgICAgICBpID0gdHJ1ZTtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtTWVzc2FnZS5jbGFzc0xpc3QuYWRkKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtTWVzc2FnZS5jbGFzc0xpc3QucmVtb3ZlKCctZXJyb3InKTtcblxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgICAgICAvLyBWZXJpZmljYXRpb25cblxuICAgICAgICBpZiAoaW5wdXQubmFtZSA9PSAndmVyaWZ5Jykge1xuXG4gICAgICAgICAgICBpZiAoIWlucHV0LnZhbHVlKSB7XG5cbiAgICAgICAgICAgICAgICBpID0gdHJ1ZTtcblxuICAgICAgICAgICAgICAgIGlmIChlcnJvciA9PSAnMScpIHtcblxuICAgICAgICAgICAgICAgICAgICBmb3JtVmVyaWZ5LmNsYXNzTGlzdC5hZGQoJy1lcnJvcicpO1xuXG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICAgICAgaWYgKGVycm9yID09ICcxJykge1xuXG4gICAgICAgICAgICAgICAgICAgIGZvcm1WZXJpZnkuY2xhc3NMaXN0LnJlbW92ZSgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxuICAgIHJldHVybiBpO1xuXG59XG5cbmNvbnN0IHJhbmRvbVZlcmlmeSA9ICgpID0+IHtcblxuICAgIHZlcmlmeVggICAgICAgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiAxMCkgKyAxO1xuICAgIHZlcmlmeVkgICAgICAgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiAxMCkgKyAxO1xuICAgIHZlcmlmeUFuc3dlciAgPSB2ZXJpZnlYICsgdmVyaWZ5WTtcblxuICAgIGZvcm1WZXJpZnlTcGFuLmlubmVySFRNTCA9IGAke3ZlcmlmeVh9ICsgJHt2ZXJpZnlZfWA7XG5cbn1cblxuLy9cblxucmFuZG9tVmVyaWZ5KCk7XG5cbi8vXG5cbmZvcm1Db250YWN0UHJlZlBob25lLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4ge1xuXG4gICAgZm9ybUVtYWlsLnN0eWxlLmRpc3BsYXkgICAgICAgICAgICAgICAgICAgICA9ICdub25lJztcbiAgICBmb3JtUGhvbmUuc3R5bGUuZGlzcGxheSAgICAgICAgICAgICAgICAgICAgID0gJ2Jsb2NrJztcblxufSk7XG5cbmZvcm1Db250YWN0UHJlZkVtYWlsLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4ge1xuXG4gICAgZm9ybVBob25lLnN0eWxlLmRpc3BsYXkgICAgICAgICAgICAgICAgICAgICA9ICdub25lJztcbiAgICBmb3JtRW1haWwuc3R5bGUuZGlzcGxheSAgICAgICAgICAgICAgICAgICAgID0gJ2Jsb2NrJztcblxufSk7XG5cbi8vXG5cbmZvcm1SZWFzb25TZWxlY3QuYWRkRXZlbnRMaXN0ZW5lcignY2hhbmdlJywgKCkgPT4ge1xuXG4gICAgbGV0IHJhZGlvcyA9IGZvcm1QcmVmZXJyZWRUaW1lLnF1ZXJ5U2VsZWN0b3JBbGwoJ2lucHV0Jyk7XG5cbiAgICBpZiAoZm9ybVJlYXNvblNlbGVjdC52YWx1ZSA9PSAnR2VuZXJhbCBlbnF1aXJ5Jykge1xuXG4gICAgICAgIGZvcm1QcmVmZXJyZWRUaW1lLnN0eWxlLmRpc3BsYXkgPSAnbm9uZSc7XG5cbiAgICAgICAgcmFkaW9zLmZvckVhY2gocmFkaW8gPT4ge1xuXG4gICAgICAgICAgICByYWRpby5jaGVja2VkICAgPSBmYWxzZTtcblxuICAgICAgICB9KTtcblxuICAgIH0gZWxzZSB7XG5cbiAgICAgICAgZm9ybVByZWZlcnJlZFRpbWUuc3R5bGUuZGlzcGxheSA9ICdibG9jayc7XG5cbiAgICB9XG5cbn0pO1xuXG4vL1xuXG5jb250YWN0Rm9ybUlucHV0cy5mb3JFYWNoKGlucHV0ID0+IHtcblxuICAgIGlmIChpbnB1dC50eXBlID09ICd0ZXh0JyB8fCBpbnB1dC50eXBlID09ICdlbWFpbCcgfHwgaW5wdXQudHlwZSA9PSAnbnVtYmVyJyB8fCBpbnB1dC5uYW1lID09ICdtZXNzYWdlJykge1xuXG4gICAgICAgIGlucHV0LmFkZEV2ZW50TGlzdGVuZXIoJ2tleXVwJywgKCkgPT4ge1xuXG4gICAgICAgICAgICBpbnB1dC5wYXJlbnROb2RlLmNsYXNzTGlzdC5yZW1vdmUoJy1lcnJvcicpO1xuXG4gICAgICAgICAgICBsZXQgaSA9IHJlYWR5VG9TdWJtaXQoMCk7XG5cbiAgICAgICAgICAgIGlmICghaSkge1xuXG4gICAgICAgICAgICAgICAgZm9ybUJ1dHRvbi5jbGFzc0xpc3QucmVtb3ZlKCctZGlzYWJsZWQnKTtcblxuICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgIGZvcm1CdXR0b24uY2xhc3NMaXN0LmFkZCgnLWRpc2FibGVkJyk7XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9KTtcblxuICAgIH0gZWxzZSB7XG5cbiAgICAgICAgaW5wdXQuYWRkRXZlbnRMaXN0ZW5lcignY2hhbmdlJywgKCkgPT4ge1xuXG4gICAgICAgICAgICBpbnB1dC5wYXJlbnROb2RlLnBhcmVudE5vZGUuY2xhc3NMaXN0LnJlbW92ZSgnLWVycm9yJyk7XG5cbiAgICAgICAgICAgIGxldCBpID0gcmVhZHlUb1N1Ym1pdCgwKTtcblxuICAgICAgICAgICAgaWYgKCFpKSB7XG5cbiAgICAgICAgICAgICAgICBmb3JtQnV0dG9uLmNsYXNzTGlzdC5yZW1vdmUoJy1kaXNhYmxlZCcpO1xuXG4gICAgICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICAgICAgZm9ybUJ1dHRvbi5jbGFzc0xpc3QuYWRkKCctZGlzYWJsZWQnKTtcblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH0pO1xuXG4gICAgfVxuXG59KTtcblxuLy9cblxuZm9ybUJ1dHRvbi5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGUgPT4ge1xuXG4gICAgbGV0IHJlYWR5ID0gcmVhZHlUb1N1Ym1pdCgxKTtcblxuICAgIC8vIEFyZSBhbGwgZmllbGRzIGFyZSBmaWxsZWQ/XG5cbiAgICBpZiAocmVhZHkpIHtcblxuICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG5cbiAgICAgICAgY29udGFjdEZvcm0uc2Nyb2xsSW50b1ZpZXcoKTtcblxuICAgIH0gZWxzZSB7XG5cbiAgICAgICAgLy8gSXMgdGhlIHNlY3VyaXR5IGFuc3dlciBjb3JyZWN0P1xuXG4gICAgICAgIGlmIChmb3JtVmVyaWZ5SW5wdXQudmFsdWUgIT0gdmVyaWZ5QW5zd2VyKSB7XG5cbiAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKTtcblxuICAgICAgICAgICAgZm9ybVZlcmlmeS5jbGFzc0xpc3QuYWRkKCctZXJyb3InKTtcbiAgICAgICAgICAgIGZvcm1WZXJpZnlNZXNzYWdlLmlubmVySFRNTCA9ICdUaGlzIGFuc3dlciBpcyBub3QgY29ycmVjdCc7XG5cbiAgICAgICAgfVxuXG4gICAgfVxuXG59KTsiXX0=
+//
+
+const contactForm               = document.querySelector('form');
+const contactFormInputs         = contactForm.querySelectorAll('input, select, textarea');
+
+const formName                  = contactForm.querySelector('.-name');
+const formNameInput             = formName.querySelector('input');
+
+const formContactPref           = contactForm.querySelector('.-contactPref');
+const formContactPrefPhone      = formContactPref.querySelector('#radioPhone');
+const formContactPrefEmail      = formContactPref.querySelector('#radioEmail');
+const formEmail                 = contactForm.querySelector('.-email');
+const formEmailInput            = formEmail.querySelector('input');
+const formPhone                 = contactForm.querySelector('.-phone');
+const formPhoneInput            = formPhone.querySelector('input');
+
+const formReason                = contactForm.querySelector('.-reason');
+const formReasonSelect          = formReason.querySelector('select');
+const formPreferredTime         = contactForm.querySelector('.-preferredTime');
+const formPreferredTimeAM       = formPreferredTime.querySelector('#radioAM');
+const formPreferredTimePM       = formPreferredTime.querySelector('#radioPM');
+
+const formMessage               = contactForm.querySelector('.-message');
+const formMessageInput          = formMessage.querySelector('textarea');
+
+const formVerify                = contactForm.querySelector('.-verify');
+const formVerifyInput           = formVerify.querySelector('input');
+const formVerifySpan            = formVerify.querySelector('label span');
+const formVerifyMessage         = formVerify.querySelector('p');
+
+const formButton                = contactForm.querySelector('button');
+const formRadios                = contactForm.querySelectorAll('input[type=radio]');
+
+//
+
+let verifyX         = 0;
+let verifyY         = 0;
+let verifyAnswer    = 0;
+
+//
+
+const readyToSubmit = (error) => {
+
+    let r       = 0;
+    let i       = false;
+
+    // Radio inputs
+
+    formRadios.forEach(radio => {
+
+        if (!radio.checked) {
+
+            r = r + 1;
+
+        } else {
+
+            r = r - 1;
+
+        }
+
+    });
+
+    // Text inputs
+
+    contactFormInputs.forEach(input => {
+
+        // Name
+
+        if (input.name == 'name') {
+
+            if (!input.value) {
+
+                i = true;
+
+                if (error == '1') {
+
+                    formName.classList.add('-error');
+
+                }
+
+            } else {
+
+                if (error == '1') {
+
+                    formName.classList.remove('-error');
+
+                }
+
+            }
+
+        }
+
+        // Contact Preference
+
+        if (input.type == 'radio') {
+
+            if (input.checked) {
+
+                if (input.value == 'Phone') {
+
+                    if (!formPhoneInput.value) {
+
+                        i = true;
+
+                        if (error == '1') {
+
+                            formPhone.classList.add('-error');
+
+                        }
+
+                    }
+
+                }
+
+                else if (input.value == 'Email') {
+
+                    if (!formEmailInput.value) {
+
+                        i = true;
+
+                        if (error == '1') {
+
+                            formEmail.classList.add('-error');
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        // Select
+
+        if (input.value == 'Book an appointment') {
+
+            if (r > 0) {
+
+                if (error == '1') {
+
+                    if (!contactForm.querySelector('input[name=contact-preference]').checked) {
+
+                        formContactPref.classList.add('-error');
+
+                    } else {
+
+                        formContactPref.classList.remove('-error');
+
+                    }
+
+                    if (!contactForm.querySelector('input[name=preferred-time]').checked) {
+
+                        formPreferredTime.classList.add('-error');
+
+                    } else {
+
+                        formPreferredTime.classList.remove('-error');
+
+                    }
+
+                }
+
+                i = true;
+
+            }
+
+        } else {
+
+            if (r > 2) {
+
+                if (error == '1') {
+
+                    formContactPref.classList.add('-error');
+
+                }
+
+                i = true;
+
+            }
+
+        }
+
+        // Textarea
+
+        if (input.name == 'message') {
+
+            if (!input.value) {
+
+                i = true;
+
+                if (error == '1') {
+
+                    formMessage.classList.add('-error');
+
+                }
+
+            } else {
+
+                if (error == '1') {
+
+                    formMessage.classList.remove('-error');
+
+                }
+
+            }
+
+        }
+
+        // Verification
+
+        if (input.name == 'verify') {
+
+            if (!input.value) {
+
+                i = true;
+
+                if (error == '1') {
+
+                    formVerify.classList.add('-error');
+
+                }
+
+            } else {
+
+                if (error == '1') {
+
+                    formVerify.classList.remove('-error');
+
+                }
+
+            }
+
+        }
+
+    });
+
+    return i;
+
+}
+
+const randomVerify = () => {
+
+    verifyX       = Math.floor(Math.random() * 10) + 1;
+    verifyY       = Math.floor(Math.random() * 10) + 1;
+    verifyAnswer  = verifyX + verifyY;
+
+    formVerifySpan.innerHTML = `${verifyX} + ${verifyY}`;
+
+}
+
+//
+
+randomVerify();
+
+//
+
+formContactPrefPhone.addEventListener('click', () => {
+
+    formEmail.style.display                     = 'none';
+    formPhone.style.display                     = 'block';
+
+});
+
+formContactPrefEmail.addEventListener('click', () => {
+
+    formPhone.style.display                     = 'none';
+    formEmail.style.display                     = 'block';
+
+});
+
+//
+
+formReasonSelect.addEventListener('change', () => {
+
+    let radios = formPreferredTime.querySelectorAll('input');
+
+    if (formReasonSelect.value == 'General enquiry') {
+
+        formPreferredTime.style.display = 'none';
+
+        radios.forEach(radio => {
+
+            radio.checked   = false;
+
+        });
+
+    } else {
+
+        formPreferredTime.style.display = 'block';
+
+    }
+
+});
+
+//
+
+contactFormInputs.forEach(input => {
+
+    if (input.type == 'text' || input.type == 'email' || input.type == 'number' || input.name == 'message') {
+
+        input.addEventListener('keyup', () => {
+
+            input.parentNode.classList.remove('-error');
+
+            let i = readyToSubmit(0);
+
+            if (!i) {
+
+                formButton.classList.remove('-disabled');
+
+            } else {
+
+                formButton.classList.add('-disabled');
+
+            }
+
+        });
+
+    } else {
+
+        input.addEventListener('change', () => {
+
+            input.parentNode.parentNode.classList.remove('-error');
+
+            let i = readyToSubmit(0);
+
+            if (!i) {
+
+                formButton.classList.remove('-disabled');
+
+            } else {
+
+                formButton.classList.add('-disabled');
+
+            }
+
+        });
+
+    }
+
+});
+
+//
+
+formButton.addEventListener('click', e => {
+
+    let ready = readyToSubmit(1);
+
+    // Are all fields are filled?
+
+    if (ready) {
+
+        e.preventDefault();
+
+        contactForm.scrollIntoView();
+
+    } else {
+
+        // Is the security answer correct?
+
+        if (formVerifyInput.value != verifyAnswer) {
+
+            e.preventDefault();
+
+            formVerify.classList.add('-error');
+            formVerifyMessage.innerHTML = 'This answer is not correct';
+
+        }
+
+    }
+
+});
