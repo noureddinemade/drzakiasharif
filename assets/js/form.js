@@ -6,11 +6,6 @@ const contactFormInputs         = contactForm.querySelectorAll('input, select, t
 const formName                  = contactForm.querySelector('.-name');
 const formNameInput             = formName.querySelector('input');
 
-const formContactPref           = contactForm.querySelector('.-contactPref');
-const formContactPrefPhone      = formContactPref.querySelector('#radioPhone');
-const formContactPrefEmail      = formContactPref.querySelector('#radioEmail');
-const formEmail                 = contactForm.querySelector('.-email');
-const formEmailInput            = formEmail.querySelector('input');
 const formPhone                 = contactForm.querySelector('.-phone');
 const formPhoneInput            = formPhone.querySelector('input');
 
@@ -92,39 +87,15 @@ const readyToSubmit = (error) => {
 
         // Contact Preference
 
-        if (input.type == 'radio') {
+        if (input.name == 'phone') {
 
-            if (input.checked) {
+            if (!formPhoneInput.value) {
 
-                if (input.value == 'Phone') {
+                i = true;
 
-                    if (!formPhoneInput.value) {
+                if (error == '1') {
 
-                        i = true;
-
-                        if (error == '1') {
-
-                            formPhone.classList.add('-error');
-
-                        }
-
-                    }
-
-                }
-
-                else if (input.value == 'Email') {
-
-                    if (!formEmailInput.value) {
-
-                        i = true;
-
-                        if (error == '1') {
-
-                            formEmail.classList.add('-error');
-
-                        }
-
-                    }
+                    formPhone.classList.add('-error');
 
                 }
 
@@ -140,16 +111,6 @@ const readyToSubmit = (error) => {
 
                 if (error == '1') {
 
-                    if (!contactForm.querySelector('input[name=contact-preference]').checked) {
-
-                        formContactPref.classList.add('-error');
-
-                    } else {
-
-                        formContactPref.classList.remove('-error');
-
-                    }
-
                     if (!contactForm.querySelector('input[name=preferred-time]').checked) {
 
                         formPreferredTime.classList.add('-error');
@@ -159,20 +120,6 @@ const readyToSubmit = (error) => {
                         formPreferredTime.classList.remove('-error');
 
                     }
-
-                }
-
-                i = true;
-
-            }
-
-        } else {
-
-            if (r > 2) {
-
-                if (error == '1') {
-
-                    formContactPref.classList.add('-error');
 
                 }
 
@@ -246,29 +193,14 @@ const randomVerify = () => {
     verifyY       = Math.floor(Math.random() * 10) + 1;
     verifyAnswer  = verifyX + verifyY;
 
-    formVerifySpan.innerHTML = `${verifyX} + ${verifyY}`;
+    formVerifySpan.setAttribute('data-number1', verifyX);
+    formVerifySpan.setAttribute('data-number2', verifyY);
 
 }
 
 //
 
 randomVerify();
-
-//
-
-formContactPrefPhone.addEventListener('click', () => {
-
-    formEmail.style.display                     = 'none';
-    formPhone.style.display                     = 'block';
-
-});
-
-formContactPrefEmail.addEventListener('click', () => {
-
-    formPhone.style.display                     = 'none';
-    formEmail.style.display                     = 'block';
-
-});
 
 //
 
